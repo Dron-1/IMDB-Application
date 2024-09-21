@@ -4,17 +4,37 @@ import genreIds from "../constants";
 const getGenreName = (genreId) => {
     return genreIds[genreId] || 'NA'
 }
+const ALL_GENRES = 'All Genres';
 
 function WatchList() {
     const APITEMPLATE_FOR_BANNER_IMG = 'https://image.tmdb.org/t/p/original'
 
     const [watchList,setWatchList] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const [genresList, setGenresList] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState(ALL_GENRES);
 
     useEffect( () => {
         let watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
         setWatchList(watchListedMoviesFromLS);
     },[])
+
+    // || for setting Genre filter options ||
+    useEffect( () => {
+        // flatMap = flattens the result into single level array
+        let genreList = watchList.flatMap( (movie) => {
+            let tempList = movie.genre_ids.map( (id) => {
+                return getGenreName(id)
+            })
+            return (tempList) // tempList is an array
+        })
+
+        genreList = new Set(genreList);
+        genreList = [ALL_GENRES,...genreList]
+        setGenresList([...genreList])
+
+        console.log("All unique Genres:",genreList)
+    }, [watchList])
 
     const sortRatingAsc = () => {
         console.log("Sorting movies Ascending based on ratings")
@@ -42,6 +62,20 @@ function WatchList() {
 
     return (
         <>
+            {/* Adding genres to UI to work as filters */}
+            <div className="flex justify-center m-4">
+                {
+                    genresList.map(genre => {
+                        return <div className={
+                            selectedGenre === genre
+                            ? "flex items-center mx-5 p-2 rounded-md h-8 w-fit bg-blue-400 text-white cursor-pointer"
+                            : "flex items-center mx-5 p-2 rounded-md h-8 w-fit bg-gray-400 text-white cursor-pointer"
+                        }
+                        onClick={() => setSelectedGenre(genre)}
+                        >{genre}</div>
+                    })
+                }
+            </div>
             {/* Search Movies with movie titles */}
             <div className="flex justify-center">
                 <input 
@@ -90,6 +124,21 @@ function WatchList() {
                     <tbody className="divide-y divide-gray-200 border-t border-gray-100">
                         {
                             watchList
+                            .filter( (movie) => {
+                                // filtering based on selected genre
+                                if( selectedGenre === ALL_GENRES ){
+                                    return true;
+                                }
+                                else{
+                                    let movieGenre = movie.genre_ids;
+                                    for( let i = 0 ; i < movieGenre.length; i++ ) {
+                                        if( selectedGenre === getGenreName( movieGenre[ i ] )){
+                                            console.log("Condition passed")
+                                            return true;
+                                        }
+                                    }
+                                }
+                            })
                             .filter((movie) => { 
                                 // filtering to apply search functionality
                                 if( movie.title.toLowerCase().includes(searchText)){

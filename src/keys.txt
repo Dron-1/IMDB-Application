@@ -1,0 +1,7 @@
+API Key
+e669a3e119fa3ef2295a53aa99a77f50
+
+API Read Access Token
+eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjY5YTNlMTE5ZmEzZWYyMjk1YTUzYWE5OWE3N2Y1MCIsIm5iZiI6MTcyNTcyNTg3NC43NTY4NDMsInN1YiI6IjY2ZGM3OGEwMzM0MjExNGYyMWVjNTI1NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Y9hg-kipdJIzCD5IkeA0iRjFa-O77MqgCVgNuWtCDl4
+
+https://api.themoviedb.org/3/trending/movie/day?api_key=e669a3e119fa3ef2295a53aa99a77f50&language=en-US&page=1

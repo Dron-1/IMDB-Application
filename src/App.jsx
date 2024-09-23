@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import './App.css'
 import NavigationBar from './components/NavigationBar'
+import { WatchlistContextWrapper } from './components/WatchlistContext.jsx'
 
 function App() {
   return (

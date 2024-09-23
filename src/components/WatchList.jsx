@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import genreIds from "../constants";
+import { WatchlistContext } from "./WatchlistContext";
 
 const getGenreName = (genreId) => {
     return genreIds[genreId] || 'NA'
@@ -9,15 +10,16 @@ const ALL_GENRES = 'All Genres';
 function WatchList() {
     const APITEMPLATE_FOR_BANNER_IMG = 'https://image.tmdb.org/t/p/original'
 
-    const [watchList,setWatchList] = useState([]);
+    const {watchList, setWatchList } = useContext(WatchlistContext);
+    // const [watchList,setWatchList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [genresList, setGenresList] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState(ALL_GENRES);
 
-    useEffect( () => {
-        let watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
-        setWatchList(watchListedMoviesFromLS);
-    },[])
+    // useEffect( () => {
+    //     let watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
+    //     setWatchList(watchListedMoviesFromLS);
+    // },[])
 
     // || for setting Genre filter options ||
     useEffect( () => {
@@ -110,7 +112,7 @@ function WatchList() {
                                 </div>
                             </th>
                             <th>
-                                <div className="flex">
+                                <div className="flex pl-6 py-4">
                                     <div>Genre</div>
                                 </div>
                             </th>
@@ -160,8 +162,8 @@ function WatchList() {
                                                 return (`${getGenreName(id)} ,`)
                                             })}    
                                         </td>
-                                        <td className="pl-6 py-4">
-                                            <i className="fa-solid fa-trash-can cursor-pointer p-2"></i>
+                                        <td className="pl-4 py-4 pr-7">
+                                            <i className="fa-solid fa-trash-can cursor-pointer p-2 text-red-600"></i>
                                         </td>
                                     </tr>
                                 )

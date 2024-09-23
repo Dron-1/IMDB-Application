@@ -1,10 +1,13 @@
 import React from 'react'
-import { useState,useEffect } from 'react'
+import { useState,useEffect, useContext } from 'react'
 import moviePoster from '../assets/banner1.jpg'
 import Pagination from './Pagination'
 import MovieCard from './MovieCard'
 import Banner from './Banner'
 import axios from 'axios'
+
+// importing context
+import { WatchlistContext } from './WatchlistContext'
 
 function Movies() {
     const [movies, setMovies] = useState([
@@ -13,8 +16,9 @@ function Movies() {
         },
     ]) // added one demo object
 
-    const [watchList, setWatchList] = useState([]);
-
+    // const [watchList, setWatchList] = useState([]);
+    // consuming context API
+    const {handleAddWatchlist, handleRemoveWatchlist, watchList, setWatchList} = useContext(WatchlistContext);
     const [pageNo, setPageNo] = useState(1);
     const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=e669a3e119fa3ef2295a53aa99a77f50&language=en-US&page=${pageNo}`;
     const APITEMPLATE_FOR_BANNER = 'https://image.tmdb.org/t/p/original'
@@ -30,26 +34,6 @@ function Movies() {
         else{
             setPageNo(pageNo - 1);
         }
-    }
-
-    const handleAddWatchlist = (movie) => {
-        console.log("handleAddWatchlist called", movie)
-        let updatedArr = [...watchList, movie];
-        setWatchList(updatedArr); // {IMPORTANT: setWatchList is async function in react }
-        console.log("watchList array:",watchList)
-
-        //|| --- Adding to LocalStorage ---||
-        localStorage.setItem('watchlistMovies',JSON.stringify(updatedArr));
-    }
-    const handleRemoveWatchlist = (movie) => {
-        let filteredArr = watchList.filter( (movieObj) => {
-            return movie.id !== movieObj.id
-        } )
-
-        setWatchList(filteredArr);
-
-        //|| --- Adding to LocalStorage ---||
-        localStorage.setItem('watchlistMovies',JSON.stringify(filteredArr));
     }
 
     useEffect( () => {

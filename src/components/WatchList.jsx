@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import genreIds from "../constants";
-import { WatchlistContext } from "./WatchlistContext";
+import { WatchlistContext } from "../context/WatchlistContext";
 
 const getGenreName = (genreId) => {
     return genreIds[genreId] || 'NA'

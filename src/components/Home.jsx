@@ -7,7 +7,7 @@ import Banner from './Banner'
 import axios from 'axios'
 
 // importing context
-import { WatchlistContext } from './WatchlistContext'
+import { WatchlistContext } from '../context/WatchlistContext'
 
 function Movies() {
     const [movies, setMovies] = useState([

@@ -10,7 +10,7 @@ const ALL_GENRES = 'All Genres';
 function WatchList() {
     const APITEMPLATE_FOR_BANNER_IMG = 'https://image.tmdb.org/t/p/original'
 
-    const {watchList, setWatchList } = useContext(WatchlistContext);
+    const {watchList, setWatchList, handleRemoveWatchlist } = useContext(WatchlistContext);
     // const [watchList,setWatchList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [genresList, setGenresList] = useState([]);
@@ -162,7 +162,7 @@ function WatchList() {
                                                 return (`${getGenreName(id)} ,`)
                                             })}    
                                         </td>
-                                        <td className="pl-4 py-4 pr-7">
+                                        <td className="pl-4 py-4 pr-7" onClick={() => handleRemoveWatchlist(movie) }>
                                             <i className="fa-solid fa-trash-can cursor-pointer p-2 text-red-600"></i>
                                         </td>
                                     </tr>

@@ -31,7 +31,7 @@ const WatchlistContextWrapper = ({children}) => {
         } )
 
         setWatchList(filteredArr);
-
+        console.log(watchList);
         //|| --- Adding to LocalStorage ---||
         localStorage.setItem('watchlistMovies',JSON.stringify(filteredArr));
     }

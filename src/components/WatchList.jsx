@@ -16,10 +16,10 @@ function WatchList() {
     const [genresList, setGenresList] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState(ALL_GENRES);
 
-    // useEffect( () => {
-    //     let watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
-    //     setWatchList(watchListedMoviesFromLS);
-    // },[])
+    useEffect( () => {
+        let watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies')) || [];
+        setWatchList(watchListedMoviesFromLS);
+    },[])
 
     // || for setting Genre filter options ||
     useEffect( () => {

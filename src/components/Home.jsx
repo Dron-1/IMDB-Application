@@ -19,22 +19,9 @@ function Movies() {
     // const [watchList, setWatchList] = useState([]);
     // consuming context API
     const {handleAddWatchlist, handleRemoveWatchlist, watchList, setWatchList} = useContext(WatchlistContext);
-    const [pageNo, setPageNo] = useState(1);
+    // const [pageNo, setPageNo] = useState(1); // commenting coz pageNo will be used from pagination reducer on pagination component itself
     const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=e669a3e119fa3ef2295a53aa99a77f50&language=en-US&page=${pageNo}`;
     const APITEMPLATE_FOR_BANNER = 'https://image.tmdb.org/t/p/original'
-
-    const handleNext = () => {
-        setPageNo(pageNo + 1);
-    }
-
-    const handleBack = () => {
-        if( pageNo == 1 ) {
-            setPageNo(1);
-        }
-        else{
-            setPageNo(pageNo - 1);
-        }
-    }
 
     useEffect( () => {
         axios.get(URL)
@@ -49,7 +36,7 @@ function Movies() {
 
     // populating LocalStorage as soon as page reloads - mount state
     useEffect( () => {
-        const watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
+        const watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies')) || [];
         console.log( watchListedMoviesFromLS );
         setWatchList(watchListedMoviesFromLS);
     },[])
@@ -73,7 +60,8 @@ function Movies() {
                 }
             </div>
             {/* for pagination */}
-            <Pagination handleBack={handleBack} handleNext={handleNext} pageNo={pageNo}/>
+            {/* <Pagination handleBack={handleBack} handleNext={handleNext} pageNo={pageNo}/> */}
+            <Pagination />
 
         </>
     )

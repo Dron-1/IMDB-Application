@@ -10,11 +10,11 @@ const WatchlistContextWrapper = ({children}) => {
 
     const [watchList,setWatchList] = useState([]);
     // populating LocalStorage as soon as page reloads - mount state
-    useEffect( () => {
-        const watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
-        console.log( watchListedMoviesFromLS );
-        setWatchList(watchListedMoviesFromLS);
-    },[])
+    // useEffect( () => {
+    //     const watchListedMoviesFromLS = JSON.parse(localStorage.getItem('watchlistMovies'));
+    //     console.log( watchListedMoviesFromLS );
+    //     setWatchList(watchListedMoviesFromLS);
+    // },[])
 
     const handleAddWatchlist = (movie) => {
         console.log("handleAddWatchlist called", movie)

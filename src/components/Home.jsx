@@ -23,6 +23,7 @@ function Movies() {
     const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=e669a3e119fa3ef2295a53aa99a77f50&language=en-US&page=${pageNo}`;
     const APITEMPLATE_FOR_BANNER = 'https://image.tmdb.org/t/p/original'
 
+    // || just for sake of commit messages, commenting this comment ||
     useEffect( () => {
         axios.get(URL)
         .then((function(response) {

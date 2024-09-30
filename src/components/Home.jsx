@@ -8,6 +8,7 @@ import axios from 'axios'
 
 // importing context
 import { WatchlistContext } from '../context/WatchlistContext'
+import { useSelector } from 'react-redux'
 
 function Movies() {
     const [movies, setMovies] = useState([
@@ -20,6 +21,7 @@ function Movies() {
     // consuming context API
     const {handleAddWatchlist, handleRemoveWatchlist, watchList, setWatchList} = useContext(WatchlistContext);
     // const [pageNo, setPageNo] = useState(1); // commenting coz pageNo will be used from pagination reducer on pagination component itself
+    const {pageNo} = useSelector((state) => state.pagination);
     const URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=e669a3e119fa3ef2295a53aa99a77f50&language=en-US&page=${pageNo}`;
     const APITEMPLATE_FOR_BANNER = 'https://image.tmdb.org/t/p/original'
 
@@ -31,7 +33,7 @@ function Movies() {
           setMovies(response.data.results);
         }))
         .catch(function(error) {
-            console.log(error)
+            console.log(error)  
         })
     },[pageNo])
 
@@ -61,7 +63,7 @@ function Movies() {
                 }
             </div>
             {/* for pagination */}
-            {/* <Pagination handleBack={handleBack} handleNext={handleNext} pageNo={pageNo}/> */}
+            {/* <Pagination handleBack={dispatch(handlePrev())} handleNext={dispatch(handleNext())} pageNo={pageNo}/> */}
             <Pagination />
 
         </>
